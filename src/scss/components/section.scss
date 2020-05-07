@@ -1,0 +1,101 @@
+$qHeights: 25%;
+$qWidths: 20%;
+.buildArea {
+    // width: 90vw;
+    // margin: 0 auto;
+    height: 90vh;
+    display: flex;
+    border: solid black;
+    flex-direction: column;
+    @media only screen and (min-width: 1200px) {
+        flex-direction:row;
+    }
+    h6 {
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 1rem;
+        line-height: 1.2;
+        min-height: 80px;
+        margin: 0;
+        a {
+            color: initial;
+            text-decoration: none;
+        }
+    }
+    p {
+        font-size: 12px;
+    }
+    .buildArea--items {
+        border: dashed black;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        height: $qHeights;
+        width: 100%;
+        padding: 0.5rem;
+        @media only screen and (min-width: 1200px) {
+            overflow-y: scroll;
+            width: $qWidths;
+            height: 100%;
+            display: block;
+        }
+        .buildArea--items--queued {
+            border: dashed black;
+            flex: 0 0 auto;
+            width: 330px;
+            margin: 0 .25rem;
+            padding: 0.25rem;
+
+
+            @media only screen and (min-width: 1200px) {
+                margin: 5px 0;
+                width: 100%;
+            }
+            .buildArea--items--queued--button {
+                width: 100%;
+            }
+        }
+    }
+    .buildArea--topItems {
+        border: dashed black;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        height: $qHeights;
+        width: 100%;
+        padding: 0.5rem;
+        @media only screen and (min-width: 1200px) {
+            overflow-y: scroll;
+            width: $qWidths;
+            height: 100%;
+            display: block;
+
+        }
+        .buildArea--topItems--incontent {
+            border: dashed black;
+            flex: 0 0 auto;
+            width: 330px;
+            margin: 0 .25rem;
+            padding: 0.25rem;
+
+            @media only screen and (min-width: 1200px) {
+                margin: 5px 0;
+                width: 100%;
+            }
+            .buildArea--topItems--incontent--button {
+                width: 100%;
+            }
+        }
+    }
+    .buildArea--editor {
+        border: dashed black;
+        overflow-y: scroll;
+        padding: 0.5rem;
+        height: calc(100% - #{$qHeights} - #{$qHeights});
+        width: 100%;
+        @media only screen and (min-width: 1200px) {
+            width: calc(100% - #{$qWidths} - #{$qWidths} );
+            height: 100%;
+        }
+    }
+}
