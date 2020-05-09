@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Header from './Header'
-import Front  from './Front'
-import Builder  from './Builder'
+import Front from './Front'
+import Builder from './Builder'
 import sectionAPI from './sectionAPI'
+import TextFix from './Textfix'
 
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
   const [section, setSection] = useState(null)
   const [items, setItems] = useState({})
   const [topItems, setTopItems] = useState({})
+  const [templates, setTemplates] = useState({})
 
   const handleLoad = load => {
     setLoading(load)
@@ -18,6 +20,9 @@ const App = () => {
   const handleHeaderClick = () => {
     setLoading(false)
     setSection(null)
+    setTopItems({})
+    setTemplates({})
+    setItems({})
   }
 
   const handleSection = (event) => {
@@ -43,7 +48,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    if (section) {
+    if (section && section !== 'textfix') {
       const getData = async () => {
         handleLoad(true)
         const res = await sectionAPI.getSection(section)
@@ -60,6 +65,8 @@ const App = () => {
         }
         setItems(bottomValues)
         setTopItems(topValues)
+        setTemplates(res.templates)
+
 
       }
       getData()
@@ -81,21 +88,32 @@ const App = () => {
     )
   }
 
-  if (section && items.length >= 0 && topItems.length >= 0) {
+  else if (section === 'textfix') {
     return (
       <div className="bootstrap-wrapper">
-        <Header title={section} handleHeaderClick={handleHeaderClick} />
-        <Builder items={items} topItems={topItems} handleSwitch={handleSwitch} />
+        <Header title={section} handleHeaderClick={handleHeaderClick} handleSection={handleSection} />
+        <TextFix />
+      </div>
+    )
+
+  }
+  else if (section && items.length >= 0 && topItems.length >= 0 && templates.hasOwnProperty('baseHTML')) {
+    return (
+      <div className="bootstrap-wrapper">
+        <Header title={section} handleHeaderClick={handleHeaderClick} handleSection={handleSection} />
+        <Builder items={items} topItems={topItems} setTopItems={setTopItems} templates={templates} section={section} handleSwitch={handleSwitch} />
       </div>
     )
   }
 
-  return (
-    <div className="bootstrap-wrapper">
-      <Header handleHeaderClick={handleHeaderClick} />
-      <Front handleSection={handleSection} />
-    </div>
-  );
+  else {
+    return (
+      <div className="bootstrap-wrapper">
+        <Header handleHeaderClick={handleHeaderClick} handleSection={handleSection} />
+        <Front handleSection={handleSection} />
+      </div>
+    );
+  }
 }
 
 export default App;

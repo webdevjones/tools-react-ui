@@ -1,101 +1,130 @@
-$qHeights: 25%;
-$qWidths: 20%;
+$qHeights: 24%;
+$qWidths: 23%;
 .buildArea {
     // width: 90vw;
     // margin: 0 auto;
     height: 90vh;
     display: flex;
-    border: solid black;
+    // border: solid black;
     flex-direction: column;
     @media only screen and (min-width: 1200px) {
-        flex-direction:row;
+        flex-direction: row;
     }
-    h6 {
-        font-family: inherit;
-        font-weight: 500;
-        font-size: 1rem;
-        line-height: 1.2;
-        min-height: 80px;
-        margin: 0;
-        a {
-            color: initial;
-            text-decoration: none;
-        }
-    }
-    p {
-        font-size: 12px;
-    }
+
     .buildArea--items {
-        border: dashed black;
+        // border: dashed black;
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
         height: $qHeights;
         width: 100%;
-        padding: 0.5rem;
+        padding: 0.5rem 0;
         @media only screen and (min-width: 1200px) {
+            padding: 0 0.5rem;
             overflow-y: scroll;
             width: $qWidths;
             height: 100%;
             display: block;
         }
         .buildArea--items--queued {
-            border: dashed black;
             flex: 0 0 auto;
             width: 330px;
-            margin: 0 .25rem;
-            padding: 0.25rem;
-
+            margin: 0 0.25rem;
+            border-radius: 5px;
+            padding: 0.5rem;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
             @media only screen and (min-width: 1200px) {
-                margin: 5px 0;
+                margin: 15px 0;
                 width: 100%;
             }
             .buildArea--items--queued--button {
+                cursor: pointer;
                 width: 100%;
+                border-radius: 5px;
+                font-weight: 600;
+                font-size: 1rem;
+                padding: 3px 6px;
+                transition: .3s;
+                &:hover{
+                    background-color: darken(#dddddd, 10%);
+                }
+
             }
         }
     }
     .buildArea--topItems {
-        border: dashed black;
+        // border: dashed black;
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
         height: $qHeights;
         width: 100%;
-        padding: 0.5rem;
+        padding: 0.5rem 0;
         @media only screen and (min-width: 1200px) {
+            padding: 0 0.5rem;
             overflow-y: scroll;
             width: $qWidths;
             height: 100%;
             display: block;
-
-        }
-        .buildArea--topItems--incontent {
-            border: dashed black;
-            flex: 0 0 auto;
-            width: 330px;
-            margin: 0 .25rem;
-            padding: 0.25rem;
-
-            @media only screen and (min-width: 1200px) {
-                margin: 5px 0;
-                width: 100%;
-            }
-            .buildArea--topItems--incontent--button {
-                width: 100%;
-            }
         }
     }
     .buildArea--editor {
-        border: dashed black;
+        // border: dashed black;
         overflow-y: scroll;
-        padding: 0.5rem;
         height: calc(100% - #{$qHeights} - #{$qHeights});
         width: 100%;
+        padding: 0.5rem 0;
         @media only screen and (min-width: 1200px) {
-            width: calc(100% - #{$qWidths} - #{$qWidths} );
+            padding: 1rem 0.5rem;
+            width: calc(100% - #{$qWidths} - #{$qWidths});
             height: 100%;
         }
     }
 }
+//Had to move these out so that the styling stuck during drag events
+//-------------drag event syling ---------------------------------
+h6 {
+    // font-family: inherit;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.2;
+    min-height: 80px;
+    margin: 0;
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+p {
+    font-size: 12px;
+}
+
+.buildArea--topItems--incontent {
+    // border: dashed black;
+    cursor: pointer;
+    flex: 0 0 auto;
+    width: 330px;
+    border-radius: 5px;
+    margin: 0 0.25rem;
+    padding: 0.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    @media only screen and (min-width: 1200px) {
+        margin: 15px 0;
+        width: 100%;
+    }
+    .buildArea--topItems--incontent--button {
+        width: 100%;
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 3px 6px;
+        border-color: white;
+        color: white;
+        cursor: pointer;
+        transition: .3s;
+
+    }
+}
+//-------------end drag event syling ---------------------------------

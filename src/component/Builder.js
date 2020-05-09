@@ -1,103 +1,144 @@
 import React from 'react'
-
 import CKEditor from 'ckeditor4-react'
+import htmlToElement from '../utils/createTemplate'
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 
 const QueueSwitch = ({ incontent, index, handleSwitch }) => {
-  if (Number(incontent)) {
-    return (
-      <button
-        className="buildArea--topItems--incontent--button"
-        input="submit"
-        value={[index, Number(incontent)]}
-        onClick={handleSwitch}
-      >
-        Remove
-      </button>
-    )
-  }
-  else {
-    return (
-      <button
-        className="buildArea--items--queued--button"
-        input="submit"
-        value={[index, Number(incontent)]}
-        onClick={handleSwitch}
-      >
-        Add
-      </button>
-    )
-  }
+    if (Number(incontent)) {
+        return (
+            <button
+                className="buildArea--topItems--incontent--button"
+                input="submit"
+                value={[index, Number(incontent)]}
+                onClick={handleSwitch}
+            >
+                Remove
+            </button>
+        )
+    }
+    else {
+        return (
+            <button
+                className="buildArea--items--queued--button"
+                input="submit"
+                value={[index, Number(incontent)]}
+                onClick={handleSwitch}
+            >
+                Add
+            </button>
+        )
+    }
 }
 const QueuedItems = ({ items, handleSwitch }) => {
-  let id = -1
-  return (
-    items.map(item => {
-      ++id
-      return (
-        <div key={id} className="buildArea--items--queued">
-          <h6>
-            <a
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {item.title}
-            </a>
-          </h6>
-          <p>{`${item.author} | ${item.pubDate} | ${item.pubTime}`}</p>
-          <QueueSwitch incontent='0' index={id} handleSwitch={handleSwitch} />
-        </div>
-      )
-    })
-  )
+    return (
+        items.map((item, index) => {
+            return (
+                <div key={index} className="buildArea--items--queued">
+                    <h6>
+                        <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {item.title}
+                        </a>
+                    </h6>
+                    <p>{`${item.author} | ${item.pubDate} | ${item.pubTime}`}</p>
+                    <QueueSwitch incontent='0' index={index} handleSwitch={handleSwitch} />
+                </div>
+            )
+        })
+    )
 }
 
-const IncontentItems = ({ items, handleSwitch }) => {
-  let id = -1
-  return (
-    items.map(item => {
-      ++id
-      return (
-        <div key={id} className="buildArea--topItems--incontent">
-          <h6>
-            <a
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {item.title}
-            </a>
-          </h6>
+const IncontentItem = SortableElement(({ section, item, index, handleSwitch }) => {
+    const onDrag = e => {
+        console.log('im getting drug')
+    }
+    return (
+        <div
+            key={index}
+            onDrag={onDrag}
+            className={section + "Light buildArea--topItems--incontent"}
+        >
+            <h6>
+                <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {item.title}
+                </a>
+            </h6>
 
-          <p>{`${item.author} | ${item.pubDate} | ${item.pubTime}`}</p>
-          <QueueSwitch incontent='1' index={id} handleSwitch={handleSwitch} />
+            <p>{`${item.author} | ${item.pubDate} | ${item.pubTime}`}</p>
+            <QueueSwitch incontent='1' index={index} handleSwitch={handleSwitch} />
         </div>
-      )
-    })
-  )
-}
+    )
+})
 
-const Builder = ({ items, topItems, handleSwitch }) => {
-    console.log(topItems.length)
-    const data = `<p>Da amount of lengths: ${topItems.length}</p>`
-  return (
-    <div className="container-fluid">
-      <div className="buildArea">
-        <div className="buildArea--items">
-          <QueuedItems items={items} handleSwitch={handleSwitch} />
-        </div>
+const SortableList = SortableContainer(({ topItems, handleSwitch, section }) => {
+    return (
         <div className="buildArea--topItems">
-          <IncontentItems items={topItems} handleSwitch={handleSwitch} />
+            {
+                topItems.map((item, index) => <IncontentItem section={section} item={item} key={index} index={index} handleSwitch={handleSwitch} />)
+            }
         </div>
-        <div className="buildArea--editor">
-          <CKEditor
-            data={data}
-            type="classic"
-          />
+    )
+})
+
+const Builder = ({ items, topItems, setTopItems, templates, section, handleSwitch }) => {
+    const snapshotImg = section === 'nbdaily' || section === 'mrctv'
+        ? false
+        : true
+    let template = htmlToElement(templates, topItems, snapshotImg)
+
+    // console.log(template)
+    const onSortEnd = ({ oldIndex, newIndex }) => {
+        setTopItems(arrayMove(topItems, oldIndex, newIndex))
+        // setTopItems(({ topItems }) => ({
+        //     topItems: arrayMove(topItems, oldIndex, newIndex),
+        // }));
+    };
+    const copyToClipboard = str => {
+        const el = document.createElement('textarea');
+        el.value = str;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+    };
+    const editorChange = e => {
+        copyToClipboard(e.editor.getData())
+    }
+    return (
+        <div className="container-fluid">
+            <div className="buildArea">
+                <div className="buildArea--items">
+                    <QueuedItems items={items} handleSwitch={handleSwitch} />
+                </div>
+                <SortableList section={section} topItems={topItems} helperClass='test' axis='xy' handleSwitch={handleSwitch} onSortEnd={onSortEnd} />
+                <div className="buildArea--editor">
+                    <CKEditor
+                        data={template}
+                        type="classic"
+                        config={{
+                            allowedContent: true,
+                            startupShowBorders: false,
+                            fullPage: true,
+                            extraPlugins: 'autogrow',
+                            autoGrow_onStartup: true
+                        }}
+                        onChange={editorChange}
+                    />
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  )
+    )
 }
 
 export default Builder
