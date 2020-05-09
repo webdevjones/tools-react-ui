@@ -41,5 +41,32 @@
                 background-color: darken(white, 10%);
             }
         }
+        .urlForm{
+            background-color: white;
+            height: 90%;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            padding: 0 1rem;
+            width: 15%;
+            form {
+                width: 100%;
+                input {
+                    width: 100%;
+                }
+                button{
+                    width: 100%;
+                    border-radius: 5px;
+                    font-weight: 600;
+                    font-size: 1rem;
+                    padding: 3px 6px;
+                    color: white;
+                    cursor: pointer;
+                    transition: .3s;
+                    background-color: #ee7624;
+                    margin-top: 0.5rem;
+                }
+            }
+        }
     }
 }

@@ -1,11 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
+import customAPI from './customAPI'
 
+const CustomNbForm = ({ handleCustomAdd }) => {
+    const [formData, setFormData] = useState('')
 
-const Header = ({ title, handleHeaderClick, handleSection }) => {
+    const handleFormChange = e => {
+        setFormData(e.target.value)
+    }
+    const handleForm = async e => {
+        e.preventDefault()
+        let encodedURI = encodeURIComponent(formData)
+        let data = await customAPI.getCustom(encodedURI)
+        if (data) {
+            handleCustomAdd(data)
+        }
+        else {
+            alert(`
+            Something went wrong :(\n
+            - The blog link doesnt exist\n
+            - The blog isnt recent enough (past 150 blogs)\n
+            - You copied the link wrong somehow?????????\n
+            Link: ${formData}
+             `)
+        }
+    }
+    return (
+        <div className='urlForm'>
+            <form>
+                <div>
+                    <input
+                        value={formData}
+                        onChange={handleFormChange}
+                        placeholder='Enter URL'
+                    />
+                </div>
+                <div>
+                    <button type="submit" onClick={handleForm}>Find Custom NB Item</button>
+                </div>
+            </form>
+        </div>
+    )
+
+}
+
+const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd }) => {
     if (!title) {
         title = "Email Builder 10000"
     }
-    if(title === 'textfix'){
+    if (title === 'textfix') {
         title = 'Text Fix'
     }
     let img = null
@@ -50,6 +92,7 @@ const Header = ({ title, handleHeaderClick, handleSection }) => {
                         }
                     </button>
                 </div>
+                {title === 'nbdaily' ? <CustomNbForm handleCustomAdd={handleCustomAdd} /> : null}
                 <button className='textfix' input="submit" value="textfix" onClick={handleSection} >
                     Format Text Email
                 </button>

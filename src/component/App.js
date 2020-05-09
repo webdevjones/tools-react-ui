@@ -17,6 +17,11 @@ const App = () => {
     setLoading(load)
   }
 
+  const handleCustomAdd = data => {
+    console.log(data)
+    setTopItems([data].concat(topItems))
+  }
+
   const handleHeaderClick = () => {
     setLoading(false)
     setSection(null)
@@ -100,7 +105,7 @@ const App = () => {
   else if (section && items.length >= 0 && topItems.length >= 0 && templates.hasOwnProperty('baseHTML')) {
     return (
       <div className="bootstrap-wrapper">
-        <Header title={section} handleHeaderClick={handleHeaderClick} handleSection={handleSection} />
+        <Header title={section} handleHeaderClick={handleHeaderClick} handleSection={handleSection} handleCustomAdd={handleCustomAdd}/>
         <Builder items={items} topItems={topItems} setTopItems={setTopItems} templates={templates} section={section} handleSwitch={handleSwitch} />
       </div>
     )
