@@ -52,14 +52,10 @@ const QueuedItems = ({ items, handleSwitch }) => {
     )
 }
 
-const IncontentItem = SortableElement(({ section, item, index, handleSwitch }) => {
-    const onDrag = e => {
-        console.log('im getting drug')
-    }
+const IncontentItem = SortableElement(({ section, item, arrIndex, handleSwitch }) => {
     return (
         <div
-            key={index}
-            onDrag={onDrag}
+            key={arrIndex}
             className={section + "Light buildArea--topItems--incontent"}
         >
             <h6>
@@ -73,7 +69,7 @@ const IncontentItem = SortableElement(({ section, item, index, handleSwitch }) =
             </h6>
 
             <p>{`${item.author} | ${item.pubDate} | ${item.pubTime}`}</p>
-            <QueueSwitch incontent='1' index={index} handleSwitch={handleSwitch} />
+            <QueueSwitch incontent='1' index={arrIndex} handleSwitch={handleSwitch} />
         </div>
     )
 })
@@ -82,7 +78,11 @@ const SortableList = SortableContainer(({ topItems, handleSwitch, section }) => 
     return (
         <div className="buildArea--topItems">
             {
-                topItems.map((item, index) => <IncontentItem section={section} item={item} key={index} index={index} handleSwitch={handleSwitch} />)
+                topItems.map((item, index) => {
+                    return (
+                        <IncontentItem section={section} item={item} key={index} index={index} arrIndex={index} handleSwitch={handleSwitch} />
+                    )
+                })
             }
         </div>
     )
@@ -94,12 +94,8 @@ const Builder = ({ items, topItems, setTopItems, templates, section, handleSwitc
         : true
     let template = htmlToElement(templates, topItems, snapshotImg)
 
-    // console.log(template)
     const onSortEnd = ({ oldIndex, newIndex }) => {
         setTopItems(arrayMove(topItems, oldIndex, newIndex))
-        // setTopItems(({ topItems }) => ({
-        //     topItems: arrayMove(topItems, oldIndex, newIndex),
-        // }));
     };
     const copyToClipboard = str => {
         const el = document.createElement('textarea');
