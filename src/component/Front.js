@@ -10,7 +10,7 @@ const SectionTile = ({ title, endpoint, handleSection }) => {
             img = 'https://cdn.mrc.org/U/OP/EMT/LOGO/NB_EmailBanner2020.png'
             break;
         case 'cnsnews':
-            img = 'https://cdn.mrc.org/U/OP/EMT/LOGO/CNS_EmailBanner2020.png'
+            img = 'https://cdn.mrc.org/U/OP/EMT/LOGO/CNS-Daily_EmailBanner2020.png'
             break;
         case 'mrctv':
             img = 'https://cdn.mrc.org/U/OP/EMT/LOGO/MRCTV_EmailBanner2020.png'
