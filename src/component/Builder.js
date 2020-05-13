@@ -109,7 +109,11 @@ const Builder = ({ items, topItems, setTopItems, templates, section, handleSwitc
         document.body.removeChild(el);
     };
     const editorChange = e => {
-        copyToClipboard(e.editor.getData())
+        let data = e.editor.getData()
+        data = data
+            .replace(/<!--\[if \(gte mso 9\)\|\(IE\)\]>/g, "\n<!--[if (gte mso 9)|(IE)]>\n")
+            .replace(/<!\[endif\]-->/g, "\n<![endif]-->\n")
+        copyToClipboard(data)
     }
     return (
         <div className="container-fluid">
