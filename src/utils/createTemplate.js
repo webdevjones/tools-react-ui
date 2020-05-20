@@ -59,10 +59,13 @@ const createTemplate = (templates, items, snapshotImg) => {
 
         }
     })
+    doc.getElementsByTagName('html')[0].removeAttribute('style')
 
     const EmailID = Math.floor(Math.random() * 1000000000)
     let fullTemplate = s.serializeToString(doc)
-    fullTemplate = fullTemplate.replace(/%%emailId%%/g, pad(EmailID, 10))
+    fullTemplate = fullTemplate
+        .replace(/%%emailId%%/g, pad(EmailID, 10))
+        // .replace(/style="overflow-y: hidden;"/, '')
 
     return fullTemplate
 }

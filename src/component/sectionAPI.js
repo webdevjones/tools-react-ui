@@ -1,7 +1,8 @@
 import axios from 'axios'
 
-const baseUrl = '/api/section'
-// const baseUrl = 'http://localhost:3004/api/section'
+console.log()
+const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api/section' :'/api/section'
+// const baseUrl = 
 
 const getSection = async (section, load) => {
     let result = await axios.get(`${baseUrl}/${section}`)
