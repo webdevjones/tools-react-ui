@@ -130,8 +130,9 @@ const Builder = ({ items, topItems, setTopItems, templates, section, handleSwitc
                             allowedContent: true,
                             startupShowBorders: false,
                             fullPage: true,
-                            extraPlugins: 'autogrow',
-                            autoGrow_onStartup: true
+                            height: 600
+                            // extraPlugins: 'autogrow',
+                            // autoGrow_onStartup: true
                         }}
                         onChange={editorChange}
                     />
