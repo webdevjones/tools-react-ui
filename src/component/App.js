@@ -86,7 +86,7 @@ const App = () => {
     return (
       <div className="loading-wrapper">
         <img
-          src="78.gif"
+          src="spinninHarry.gif"
           alt="Loading..."
         />
       </div>
