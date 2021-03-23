@@ -4,7 +4,7 @@ const htmlToElement = html => {
     template.innerHTML = html;
     return template.content.firstChild;
 }
-const pad = (num, size) => ('0000000000000' + num).substr(-size)
+// const pad = (num, size) => ('0000000000000' + num).substr(-size)
 
 const insertAfter = (newNode, existingNode) => {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
@@ -22,18 +22,23 @@ const generateArticle = (item, template) => {
         .replace(/\[\[IMAGE\]\]/g, item.image)
         .replace(/\[\[SUMMARY\]\]/g, item.content)
 }
-const createTemplate = (templates, items, snapshotImg) => {
+const createTemplate = (templates, items, snapshotImg, emailId) => {
 
     let domparser = new DOMParser()
     let s = new XMLSerializer();
+    console.log(templates.baseHTML)
     let doc = domparser.parseFromString(templates.baseHTML, 'text/html')
 
     //Lets add the internal Ad
     let IA = htmlToElement(templates.internalAd)
     let adSpacer = htmlToElement(templates.adSpacer)
+    let impactBox = htmlToElement(templates.impact)
+    console.log(doc)
+    console.log('impact', impactBox)
     insertAfter(adSpacer, doc.getElementById('articles-container'))
     insertAfter(IA, doc.getElementById('articles-container'))
     insertAfter(adSpacer, doc.getElementById('articles-container'))
+    insertAfter(impactBox, doc.getElementById('impact-box'))
 
     //onto the items
     items.forEach((item, index) => {
@@ -61,11 +66,11 @@ const createTemplate = (templates, items, snapshotImg) => {
     })
     doc.getElementsByTagName('html')[0].removeAttribute('style')
 
-    const EmailID = Math.floor(Math.random() * 1000000000)
+    // const EmailID = Math.floor(Math.random() * 1000000000)
     let fullTemplate = s.serializeToString(doc)
     fullTemplate = fullTemplate
-        .replace(/%%emailId%%/g, pad(EmailID, 10))
-        // .replace(/style="overflow-y: hidden;"/, '')
+        .replace(/%%emailId%%/g, emailId)
+    // .replace(/style="overflow-y: hidden;"/, '')
 
     return fullTemplate
 }

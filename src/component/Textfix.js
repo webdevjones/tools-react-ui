@@ -8,6 +8,7 @@ const fixMe = () => {
         for (let i = 0; i < lines.length; ++i) {
             lines[i] = lines[i].replace(/\[mrctv:[^\]]*?\]/sgi, '')
                 .replace(/.*?intermarkets.*/sgi, '')
+                .replace(/.*?%%email%%.*/sgi, '')
                 .replace(/^\s*/, '');
         }
         for (let i = lines.length - 1; i > 1; --i) {

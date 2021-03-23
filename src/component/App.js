@@ -12,7 +12,7 @@ const App = () => {
   const [items, setItems] = useState({})
   const [topItems, setTopItems] = useState({})
   const [templates, setTemplates] = useState({})
-
+  const [emailId, setEmailId] = useState("")
   const handleLoad = load => {
     setLoading(load)
   }
@@ -105,8 +105,8 @@ const App = () => {
   else if (section && items.length >= 0 && topItems.length >= 0 && templates.hasOwnProperty('baseHTML')) {
     return (
       <div className="bootstrap-wrapper">
-        <Header title={section} handleHeaderClick={handleHeaderClick} handleSection={handleSection} handleCustomAdd={handleCustomAdd}/>
-        <Builder items={items} topItems={topItems} setTopItems={setTopItems} templates={templates} section={section} handleSwitch={handleSwitch} />
+        <Header title={section} handleHeaderClick={handleHeaderClick} handleSection={handleSection} handleCustomAdd={handleCustomAdd} setEmailId={setEmailId} emailId={emailId}/>
+        <Builder items={items} topItems={topItems} setTopItems={setTopItems} templates={templates} section={section} handleSwitch={handleSwitch} emailId={emailId} />
       </div>
     )
   }

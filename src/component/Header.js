@@ -43,7 +43,8 @@ const CustomNbForm = ({ handleCustomAdd }) => {
 
 }
 
-const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd }) => {
+
+const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd, setEmailId, emailId }) => {
     if (!title) {
         title = "Email Builder 10000"
     }
@@ -93,6 +94,16 @@ const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd }) =>
                     </button>
                 </div>
                 {title === 'nbdaily' ? <CustomNbForm handleCustomAdd={handleCustomAdd} /> : null}
+
+                {
+                    setEmailId
+                        ? <div id="emailIdForm">
+                            <label>Pardot Email Id:</label>
+                            <input type="text" value={emailId} onChange={e => setEmailId(e.currentTarget.value)} placeholder="Paste email id if possible"></input>
+                        </div>
+                        : false
+                }
+
                 <button className='textfix' input="submit" value="textfix" onClick={handleSection} >
                     Format Text Email
                 </button>

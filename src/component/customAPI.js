@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const baseUrl = '/api/custom'
-// const baseUrl = 'http://localhost:3001/api/custom'
+const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api/custom' :'/api/custom'
+
 
 const getCustom = async (url) => {
     try {

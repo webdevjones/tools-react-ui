@@ -25,6 +25,22 @@
                 font-size: 2rem;
             }
         }
+        #emailIdForm{
+            background-color: white;
+            height: 90%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 5px;
+            padding: 0 1rem;
+            width: 15%;
+
+            label{
+                margin-bottom: .5rem;
+                font-weight: bold;
+            }
+
+        }
         .textfix {
             cursor: pointer;
             background-color: white;
