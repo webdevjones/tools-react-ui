@@ -44,7 +44,7 @@ const CustomNbForm = ({ handleCustomAdd }) => {
 }
 
 
-const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd, setEmailId, emailId }) => {
+const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd, setEmailId, emailId, setShowSpotlight, showSpotlight, setShowPodcast, showPodcast }) => {
     if (!title) {
         title = "Email Builder 10000"
     }
@@ -75,6 +75,8 @@ const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd, setE
         default:
             break;
     }
+
+    console.log('title', title)
     return (
         <div
             className={title + " container-fluid"}
@@ -94,6 +96,16 @@ const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd, setE
                     </button>
                 </div>
                 {title === 'nbdaily' ? <CustomNbForm handleCustomAdd={handleCustomAdd} /> : null}
+                {
+                    title !== "Email Builder 10000"
+                        ?
+                        <div className="setSpotlight">
+                            <button className={`${showSpotlight ? 'red' : 'green'}`} onClick={e => setShowSpotlight(!showSpotlight)} >{showSpotlight ? 'Remove Spotlight' : 'Add Spotlight'}</button>
+                            <button className={`${showPodcast ? 'red' : 'green'}`} onClick={e => setShowPodcast(!showPodcast)} >{showPodcast ? 'Remove Podcast' : 'Add Podcast'}</button>
+
+                        </div>
+                        : false
+                }
 
                 {
                     setEmailId

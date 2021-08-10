@@ -88,11 +88,11 @@ const SortableList = SortableContainer(({ topItems, handleSwitch, section }) => 
     )
 })
 
-const Builder = ({ items, topItems, setTopItems, templates, section, handleSwitch, emailId }) => {
+const Builder = ({ items, topItems, setTopItems, templates, section, handleSwitch, emailId, showSpotlight, showPodcast }) => {
     const snapshotImg = section === 'nbdaily' || section === 'mrctv'
         ? false
         : true
-    let template = htmlToElement(templates, topItems, snapshotImg, emailId)
+    let template = htmlToElement(templates, topItems, snapshotImg, emailId, section, showSpotlight, showPodcast)
 
     const onSortEnd = ({ oldIndex, newIndex }) => {
         setTopItems(arrayMove(topItems, oldIndex, newIndex))

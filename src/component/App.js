@@ -13,6 +13,8 @@ const App = () => {
   const [topItems, setTopItems] = useState({})
   const [templates, setTemplates] = useState({})
   const [emailId, setEmailId] = useState("")
+  const [showSpotlight, setShowSpotlight] = useState(false)
+  const [showPodcast, setShowPodcast] = useState(false)
   const handleLoad = load => {
     setLoading(load)
   }
@@ -79,7 +81,7 @@ const App = () => {
     }
 
   }, [section])
-
+  console.log('templates', templates)
 
 
   if (loading) {
@@ -105,8 +107,8 @@ const App = () => {
   else if (section && items.length >= 0 && topItems.length >= 0 && templates.hasOwnProperty('baseHTML')) {
     return (
       <div className="bootstrap-wrapper">
-        <Header title={section} handleHeaderClick={handleHeaderClick} handleSection={handleSection} handleCustomAdd={handleCustomAdd} setEmailId={setEmailId} emailId={emailId}/>
-        <Builder items={items} topItems={topItems} setTopItems={setTopItems} templates={templates} section={section} handleSwitch={handleSwitch} emailId={emailId} />
+        <Header title={section} handleHeaderClick={handleHeaderClick} handleSection={handleSection} handleCustomAdd={handleCustomAdd} setEmailId={setEmailId} emailId={emailId} setShowSpotlight={setShowSpotlight} showSpotlight={showSpotlight}  setShowPodcast={setShowPodcast} showPodcast={showPodcast} />
+        <Builder items={items} topItems={topItems} setTopItems={setTopItems} templates={templates} section={section} handleSwitch={handleSwitch} emailId={emailId} showSpotlight={showSpotlight} showPodcast={showPodcast}/>
       </div>
     )
   }
