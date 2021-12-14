@@ -8,9 +8,9 @@ let gulp = require('gulp'),
 
 const paths = {
     scss: {
-        src: './scss/style.scss',
-        dest: '.',
-        watch: './scss/**/*.scss',
+        src: './src/scss/style.scss',
+        dest: './src',
+        watch: './src/scss/**/*.scss',
     }
 }
 

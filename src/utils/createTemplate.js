@@ -49,10 +49,11 @@ const generateArticle = (item, template) => {
         .replace(/\[\[IMAGE\]\]/g, item.image)
         .replace(/\[\[SUMMARY\]\]/g, item.content)
 }
-const createTemplate = (templates, items, snapshotImg, emailId, section, showSpotlight, showPodcast) => {
+const createTemplate = (templates, items, snapshotImg, emailId, section, showSpotlight, showPodcast, showFeatured = true) => {
 
     console.log('showSpotlight', showSpotlight)
     console.log('showPodcast', showPodcast)
+    console.log('showFeatured', showPodcast)
     let domparser = new DOMParser()
     let s = new XMLSerializer();
     // console.log(templates.baseHTML)
@@ -82,14 +83,17 @@ const createTemplate = (templates, items, snapshotImg, emailId, section, showSpo
     //onto the items
     items.forEach((item, index) => {
         if (!index) {
-            //Add the featured story
-            doc
-                .getElementById('featured-container')
-                .innerHTML = generateArticle(item, templates.featured)
             //Add the preheader
             doc
                 .getElementById('preheader')
                 .innerHTML = generatePreheader(item)
+        }
+
+        if (!index && showFeatured) {
+            //Add the featured story
+            doc
+                .getElementById('featured-container')
+                .innerHTML = generateArticle(item, templates.featured)
         }
         else {
             //add the snapshots

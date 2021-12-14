@@ -16,6 +16,7 @@
     "react-sortable-hoc": "^1.11.0"
   },
   "scripts": {
+    "gulp": "gulp",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

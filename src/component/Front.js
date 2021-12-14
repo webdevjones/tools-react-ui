@@ -21,6 +21,9 @@ const SectionTile = ({ title, endpoint, handleSection }) => {
         case 'fsa':
             img = 'https://cdn.mrc.org/U/OP/EMT/LOGO/FreeSpeechAmerica_Logo.png'
             break;
+        case 'mrcweekly':
+            img = 'https://cdn.mrc.org/U/OP/EMT/LOGOS/MRCWeeklyBannerLogo.png'
+            break;
 
         default:
             break;
@@ -53,6 +56,7 @@ const Front = ({ handleSection }) => {
                 <SectionTile title="Culture" endpoint="culture" handleSection={handleSection} />
                 <SectionTile title="Latino" endpoint="latino" handleSection={handleSection} />
                 <SectionTile title="FSA" endpoint="fsa" handleSection={handleSection} />
+                <SectionTile title="MRC Weekly" endpoint="mrcweekly" handleSection={handleSection} />
             </div>
         </div>
     )

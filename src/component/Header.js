@@ -9,10 +9,16 @@ const CustomNbForm = ({ handleCustomAdd }) => {
     }
     const handleForm = async e => {
         e.preventDefault()
+        const btn = e.currentTarget
+        const oldText = btn.innerText
+        btn.innerText = 'Finding...'
+        // console.log(currText)
         let encodedURI = encodeURIComponent(formData)
         let data = await customAPI.getCustom(encodedURI)
         if (data) {
+            btn.innerText = oldText
             handleCustomAdd(data)
+            setFormData('')
         }
         else {
             alert(`
@@ -35,7 +41,7 @@ const CustomNbForm = ({ handleCustomAdd }) => {
                     />
                 </div>
                 <div>
-                    <button type="submit" onClick={handleForm}>Find Custom NB Item</button>
+                    <button type="submit" onClick={handleForm}>Find Custom Item</button>
                 </div>
             </form>
         </div>
@@ -71,6 +77,9 @@ const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd, setE
         case 'fsa':
             img = 'https://cdn.mrc.org/U/OP/EMT/LOGO/FreeSpeechAmerica_Logo.png'
             break;
+        case 'mrcweekly':
+            img = 'https://cdn.mrc.org/U/OP/EMT/LOGOS/MRCWeeklyBannerLogo.png'
+            break;
 
         default:
             break;
@@ -95,7 +104,7 @@ const Header = ({ title, handleHeaderClick, handleSection, handleCustomAdd, setE
                         }
                     </button>
                 </div>
-                {title === 'nbdaily' ? <CustomNbForm handleCustomAdd={handleCustomAdd} /> : null}
+                {title === 'nbdaily' || title === 'mrcweekly' ? <CustomNbForm handleCustomAdd={handleCustomAdd} /> : null}
                 {
                     title !== "Email Builder 10000"
                         ?

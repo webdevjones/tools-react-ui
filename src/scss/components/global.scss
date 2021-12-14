@@ -4,6 +4,8 @@ $mrctv: #333e48;
 $nb: #ee7624;
 $cns: #0055b8;
 $latino: #b3272d;
+$mrcweekly: #959595;
+// $mrcweekly: #f2f2f2;
 $lightPercent: 47%;
 .nbdaily {
     background-color: $nb;
@@ -22,6 +24,9 @@ $lightPercent: 47%;
 }
 .fsa {
     background-color: $fsa;
+}
+.mrcweekly {
+    background-color: $mrcweekly;
 }
 .nbdailyLight {
     background-color: lighten($nb, 40%);
@@ -74,6 +79,16 @@ $lightPercent: 47%;
         background-color: $fsa;
         &:hover{
             background-color: darken($fsa,10%);
+        }
+    }
+}
+
+.mrcweeklyLight {
+    background-color: lighten($mrcweekly, 47%);
+    button{
+        background-color: $mrcweekly;
+        &:hover{
+            background-color: darken($mrcweekly,10%);
         }
     }
 }

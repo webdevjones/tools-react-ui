@@ -68,5 +68,13 @@
                 background-color: darken($fsa, 10%);
             }
         }
+        #mrcweekly {
+            background-color: $mrcweekly;
+            transition: 0.5s;
+            &:hover {
+                transition: 0.5s;
+                background-color: darken($mrcweekly, 10%);
+            }
+        }
     }
 }

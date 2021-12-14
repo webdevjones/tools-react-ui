@@ -92,7 +92,7 @@ const Builder = ({ items, topItems, setTopItems, templates, section, handleSwitc
     const snapshotImg = section === 'nbdaily' || section === 'mrctv'
         ? false
         : true
-    let template = htmlToElement(templates, topItems, snapshotImg, emailId, section, showSpotlight, showPodcast)
+    let template = htmlToElement(templates, topItems, snapshotImg, emailId, section, showSpotlight, showPodcast, section === 'mrcweekly' ? false : true)
 
     const onSortEnd = ({ oldIndex, newIndex }) => {
         setTopItems(arrayMove(topItems, oldIndex, newIndex))

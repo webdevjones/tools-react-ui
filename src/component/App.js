@@ -82,7 +82,7 @@ const App = () => {
 
   }, [section])
   console.log('templates', templates)
-
+  console.log('section', section)
 
   if (loading) {
     return (
